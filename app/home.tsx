@@ -9,8 +9,7 @@ import {
 import "./app.css";
 import { z } from "zod";
 import { Main } from "./remotion/components/Main";
-import { RenderControls } from "./components/RenderControls";
-import { Spacing } from "./components/Spacing";
+import { RenderControls } from "./components/features/rendering/RenderControls";
 
 import { CompositionProps } from "./remotion/schemata";
 
