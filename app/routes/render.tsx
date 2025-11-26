@@ -1,9 +1,9 @@
 import { ActionFunctionArgs } from "react-router";
-import { renderVideo } from "./lib/render-video.server";
-import { COMPOSITION_ID } from "./remotion/constants.mjs";
-import { RenderRequest, CompositionProps } from "./remotion/schemata";
-import type { ApiResponse } from "./lib/api";
-import type { RenderResponse } from "./lib/types";
+import { renderVideo } from "../lib/render-video.server";
+import { COMPOSITION_ID } from "../remotion/constants.mjs";
+import { RenderRequest, CompositionProps } from "../remotion/schemata";
+import type { ApiResponse } from "../lib/api";
+import type { RenderResponse } from "../lib/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   try {

@@ -3,9 +3,9 @@ import {
   speculateFunctionName,
 } from "@remotion/lambda/client";
 import { ActionFunction } from "react-router";
-import { errorAsJson } from "./lib/return-error-as-json";
-import { ProgressRequest, ProgressResponse } from "./remotion/schemata";
-import { DISK, RAM, REGION, TIMEOUT } from "./remotion/constants.mjs";
+import { errorAsJson } from "../lib/return-error-as-json";
+import { ProgressRequest, ProgressResponse } from "../remotion/schemata";
+import { DISK, RAM, REGION, TIMEOUT } from "../remotion/constants.mjs";
 
 export const action: ActionFunction = errorAsJson(
   async ({ request }): Promise<ProgressResponse> => {
