@@ -1,20 +1,44 @@
-import { ActionFunction } from "react-router";
+import { ActionFunctionArgs } from "react-router";
 import { renderVideo } from "./lib/render-video.server";
-import { SITE_NAME, COMPOSITION_ID } from "./remotion/constants.mjs";
-import { errorAsJson } from "./lib/return-error-as-json";
-import { RenderRequest } from "./remotion/schemata";
+import { COMPOSITION_ID } from "./remotion/constants.mjs";
+import { RenderRequest, CompositionProps } from "./remotion/schemata";
+import type { ApiResponse } from "./lib/api";
+import type { RenderResponse } from "./lib/types";
 
-export const action: ActionFunction = errorAsJson(async ({ request }) => {
-  const formData = await request.json();
-  const { inputProps } = RenderRequest.parse(formData);
+export async function action({ request }: ActionFunctionArgs) {
+  try {
+    const body = await request.json();
+    const { inputProps } = RenderRequest.parse(body);
 
-  const renderData = await renderVideo({
-    serveUrl: SITE_NAME,
-    composition: COMPOSITION_ID,
-    inputProps,
-    outName: `logo-animation.mp4`,
-    metadata: null,
-  });
+    // Validate input props
+    CompositionProps.parse(inputProps);
 
-  return renderData;
-});
+    // Generate a unique filename
+    const timestamp = Date.now();
+    const fileName = `video-${timestamp}.mp4`;
+
+    const result = await renderVideo({
+      composition: COMPOSITION_ID,
+      inputProps,
+      outName: fileName,
+    });
+
+    const response: ApiResponse<RenderResponse> = {
+      type: "success",
+      data: result,
+    };
+
+    return new Response(JSON.stringify(response), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    const response: ApiResponse<never> = {
+      type: "error",
+      message: error instanceof Error ? error.message : "Unknown error",
+    };
+    return new Response(JSON.stringify(response), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}

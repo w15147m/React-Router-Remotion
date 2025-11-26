@@ -44,11 +44,18 @@ export const RenderControls: React.FC<{
           ) : null}
         </>
       ) : null}
-      {state.status === "rendering" || state.status === "done" ? (
+      {state.status === "rendering" ? (
         <>
-          <ProgressBar
-            progress={state.status === "rendering" ? state.progress : 1}
-          />
+          <ProgressBar progress={0.5} />
+          <Spacing></Spacing>
+          <div className="text-sm text-foreground opacity-60">
+            Rendering your video...
+          </div>
+        </>
+      ) : null}
+      {state.status === "done" ? (
+        <>
+          <ProgressBar progress={1} />
           <Spacing></Spacing>
           <AlignEnd>
             <DownloadButton undo={undo} state={state}></DownloadButton>

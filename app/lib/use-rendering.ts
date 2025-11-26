@@ -1,39 +1,27 @@
 import { z } from "zod";
 import { useCallback, useMemo, useState } from "react";
-import { getProgress, renderVideo } from "./api";
+import { renderVideo } from "./api";
 import { CompositionProps } from "~/remotion/schemata";
 
 export type State =
   | {
-      status: "init";
-    }
+    status: "init";
+  }
   | {
-      status: "invoking";
-    }
+    status: "invoking";
+  }
   | {
-      renderId: string;
-      bucketName: string;
-      progress: number;
-      status: "rendering";
-    }
+    status: "rendering";
+  }
   | {
-      renderId: string | null;
-      status: "error";
-      error: Error;
-    }
+    status: "error";
+    error: Error;
+  }
   | {
-      url: string;
-      size: number;
-      status: "done";
-    };
-
-const wait = async (milliSeconds: number) => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, milliSeconds);
-  });
-};
+    url: string;
+    fileName: string;
+    status: "done";
+  };
 
 export const useRendering = (
   id: string,
@@ -48,56 +36,21 @@ export const useRendering = (
       status: "invoking",
     });
     try {
-      const { renderId, bucketName } = await renderVideo({ inputProps });
       setState({
         status: "rendering",
-        progress: 0,
-        renderId: renderId,
-        bucketName: bucketName,
       });
 
-      let pending = true;
+      const result = await renderVideo({ inputProps });
 
-      while (pending) {
-        const result = await getProgress({
-          id: renderId,
-          bucketName: bucketName,
-        });
-        switch (result.type) {
-          case "error": {
-            setState({
-              status: "error",
-              renderId: renderId,
-              error: new Error(result.message),
-            });
-            pending = false;
-            break;
-          }
-          case "done": {
-            setState({
-              size: result.size,
-              url: result.url,
-              status: "done",
-            });
-            pending = false;
-            break;
-          }
-          case "progress": {
-            setState({
-              status: "rendering",
-              bucketName: bucketName,
-              progress: result.progress,
-              renderId: renderId,
-            });
-            await wait(1000);
-          }
-        }
-      }
+      setState({
+        url: result.outputPath,
+        fileName: result.fileName,
+        status: "done",
+      });
     } catch (err) {
       setState({
         status: "error",
         error: err as Error,
-        renderId: null,
       });
     }
   }, [inputProps]);

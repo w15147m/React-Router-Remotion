@@ -11,7 +11,7 @@ import { z } from "zod";
 import { Main } from "./remotion/components/Main";
 import { RenderControls } from "./components/RenderControls";
 import { Spacing } from "./components/Spacing";
-import { Tips } from "./components/Tips";
+
 import { CompositionProps } from "./remotion/schemata";
 
 export default function Index() {
@@ -49,11 +49,7 @@ export default function Index() {
           setText={setText}
           inputProps={inputProps}
         ></RenderControls>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Tips></Tips>
+
       </div>
     </div>
   );

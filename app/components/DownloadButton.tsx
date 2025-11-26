@@ -3,17 +3,7 @@ import { State } from "../lib/use-rendering";
 import { Button } from "./Button";
 import { Spacing } from "./Spacing";
 
-const Megabytes: React.FC<{
-  sizeInBytes: number;
-}> = ({ sizeInBytes }) => {
-  const megabytes = Intl.NumberFormat("en", {
-    notation: "compact",
-    style: "unit",
-    unit: "byte",
-    unitDisplay: "narrow",
-  }).format(sizeInBytes);
-  return <span className="opacity-60">{megabytes}</span>;
-};
+
 
 export const DownloadButton: React.FC<{
   state: State;
@@ -33,11 +23,9 @@ export const DownloadButton: React.FC<{
         <UndoIcon></UndoIcon>
       </Button>
       <Spacing></Spacing>
-      <a href={state.url}>
+      <a href={state.url} download={state.fileName}>
         <Button>
           Download video
-          <Spacing></Spacing>
-          <Megabytes sizeInBytes={state.size}></Megabytes>
         </Button>
       </a>
     </div>

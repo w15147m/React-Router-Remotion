@@ -1,68 +1,53 @@
-import {
-  renderMediaOnLambda,
-  speculateFunctionName,
-} from "@remotion/lambda/client";
+import { bundle } from "@remotion/bundler";
+import { renderMedia, selectComposition } from "@remotion/renderer";
 import type { RenderResponse } from "./types";
 import { z } from "zod";
 import { CompositionProps } from "~/remotion/schemata";
-import { DISK, RAM, REGION, TIMEOUT } from "~/remotion/constants.mjs";
+import path from "path";
+import fs from "fs";
 
 export const renderVideo = async ({
-  serveUrl,
   composition,
   inputProps,
   outName,
-  metadata,
 }: {
-  serveUrl: string;
   composition: string;
   inputProps: z.infer<typeof CompositionProps>;
   outName: string;
-  metadata: Record<string, string> | null;
 }): Promise<RenderResponse> => {
-  if (
-    !process.env.AWS_ACCESS_KEY_ID &&
-    !process.env.REMOTION_AWS_ACCESS_KEY_ID
-  ) {
-    throw new TypeError(
-      "Set up Remotion Lambda to render videos. See the README.md for how to do so.",
-    );
-  }
-  if (
-    !process.env.AWS_SECRET_ACCESS_KEY &&
-    !process.env.REMOTION_AWS_SECRET_ACCESS_KEY
-  ) {
-    throw new TypeError(
-      "The environment variable REMOTION_AWS_SECRET_ACCESS_KEY is missing. Add it to your .env file.",
-    );
+  // Create output directory if it doesn't exist
+  const outputDir = path.join(process.cwd(), "public", "videos");
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const { renderId, bucketName } = await renderMediaOnLambda({
-    region: REGION,
-    functionName: speculateFunctionName({
-      diskSizeInMb: DISK,
-      memorySizeInMb: RAM,
-      timeoutInSeconds: TIMEOUT,
-    }),
-    serveUrl,
-    composition,
+  const outputPath = path.join(outputDir, outName);
+
+  // Bundle the Remotion project
+  const bundleLocation = await bundle({
+    entryPoint: path.join(process.cwd(), "app", "remotion", "index.ts"),
+    // If you have a Webpack override, make sure to import it here
+    webpackOverride: (config) => config,
+  });
+
+  // Get composition metadata
+  const compositionData = await selectComposition({
+    serveUrl: bundleLocation,
+    id: composition,
     inputProps,
+  });
+
+  // Render the video
+  await renderMedia({
+    composition: compositionData,
+    serveUrl: bundleLocation,
     codec: "h264",
-    downloadBehavior: {
-      type: "download",
-      fileName: outName,
-    },
-    metadata,
+    outputLocation: outputPath,
+    inputProps,
   });
 
   return {
-    renderId,
-    bucketName,
-    functionName: speculateFunctionName({
-      diskSizeInMb: DISK,
-      memorySizeInMb: RAM,
-      timeoutInSeconds: TIMEOUT,
-    }),
-    region: REGION,
+    outputPath: `/videos/${outName}`,
+    fileName: outName,
   };
 };
