@@ -6,7 +6,6 @@ import {
   COMPOSITION_HEIGHT,
   COMPOSITION_WIDTH,
 } from "../remotion/constants.mjs";
-import "../styles/app.css";
 import { z } from "zod";
 import { Main } from "../remotion/components/Main";
 import { RenderControls } from "../components/features/rendering/RenderControls";

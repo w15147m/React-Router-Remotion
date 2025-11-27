@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import "./styles/app.css";
 
 export const meta: MetaFunction = () => {
   return [
