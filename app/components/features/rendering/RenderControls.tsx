@@ -1,4 +1,5 @@
 import { z } from "zod";
+import React from "react";
 import { AlignEnd } from "../../layout/AlignEnd";
 import { Button } from "../../ui/Button";
 import { InputContainer } from "../../ui/InputContainer";
@@ -14,9 +15,20 @@ import { CompositionProps } from "~/remotion/schemata";
 export const RenderControls: React.FC<{
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
+  durationInSeconds: number;
+  setDurationInSeconds: React.Dispatch<React.SetStateAction<number>>;
   inputProps: z.infer<typeof CompositionProps>;
-}> = ({ text, setText, inputProps }) => {
+}> = ({ text, setText, durationInSeconds, setDurationInSeconds, inputProps }) => {
   const { renderMedia, state, undo } = useRendering(COMPOSITION_ID, inputProps);
+  const [durationText, setDurationText] = React.useState(durationInSeconds.toString());
+
+  const handleDurationChange = (value: string) => {
+    setDurationText(value);
+    const num = parseFloat(value);
+    if (!isNaN(num) && num > 0) {
+      setDurationInSeconds(num);
+    }
+  };
 
   return (
     <InputContainer>
@@ -24,11 +36,27 @@ export const RenderControls: React.FC<{
       state.status === "invoking" ||
       state.status === "error" ? (
         <>
-          <Input
-            disabled={state.status === "invoking"}
-            setText={setText}
-            text={text}
-          ></Input>
+          <div className="mb-2">
+            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+              Video Title
+            </label>
+            <Input
+              disabled={state.status === "invoking"}
+              setText={setText}
+              text={text}
+            ></Input>
+          </div>
+          <Spacing></Spacing>
+          <div className="mb-2">
+            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+              Duration (seconds)
+            </label>
+            <Input
+              disabled={state.status === "invoking"}
+              setText={handleDurationChange}
+              text={durationText}
+            ></Input>
+          </div>
           <Spacing></Spacing>
           <AlignEnd>
             <Button

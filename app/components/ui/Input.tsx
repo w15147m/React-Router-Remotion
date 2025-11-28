@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 
 export const Input: React.FC<{
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
+  setText: ((value: string) => void) | React.Dispatch<React.SetStateAction<string>>;
   disabled?: boolean;
 }> = ({ text, setText, disabled }) => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(

@@ -13,12 +13,16 @@ export async function action({ request }: ActionFunctionArgs) {
     // Validate input props
     CompositionProps.parse(inputProps);
 
-    // Generate a unique filename
+    // Generate a filename based on the title
     const timestamp = Date.now();
-    const fileName = `video-${timestamp}.mp4`;
+    const sanitizedTitle = inputProps.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    const fileName = `${sanitizedTitle}-${timestamp}.mp4`;
 
     const result = await renderVideo({
-      composition: COMPOSITION_ID,
+      composition: COMPOSITION_ID, 
       inputProps,
       outName: fileName,
     });
