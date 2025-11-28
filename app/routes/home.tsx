@@ -14,13 +14,28 @@ import { CompositionProps } from "../remotion/schemata";
 export default function Index() {
   const [text, setText] = useState("React Router + Remotion");
   const [durationInSeconds, setDurationInSeconds] = useState(7);
+  const [audioFileName, setAudioFileName] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("audioFileName") || "deep.mp3";
+    }
+    return "deep.mp3";
+  });
+
+  const handleAudioChange = (value: string) => {
+    setAudioFileName(value);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("audioFileName", value);
+      window.location.reload();
+    }
+  };
 
   const inputProps: z.infer<typeof CompositionProps> = useMemo(() => {
     return {
       title: text,
       durationInSeconds,
+      audioFileName: audioFileName || undefined,
     };
-  }, [text, durationInSeconds]);
+  }, [text, durationInSeconds, audioFileName]);
 
   const durationInFrames = useMemo(() => {
     return Math.round(durationInSeconds * COMPOSITION_FPS);
@@ -31,6 +46,7 @@ export default function Index() {
       <div className="max-w-screen-md m-auto mb-5">
         <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16">
           <Player
+            key={`player-${audioFileName}`}
             component={Main}
             inputProps={inputProps}
             durationInFrames={durationInFrames}
@@ -52,6 +68,8 @@ export default function Index() {
           setText={setText}
           durationInSeconds={durationInSeconds}
           setDurationInSeconds={setDurationInSeconds}
+          audioFileName={audioFileName}
+          setAudioFileName={handleAudioChange}
           inputProps={inputProps}
         ></RenderControls>
 

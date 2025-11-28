@@ -6,19 +6,31 @@ import { InputContainer } from "../../ui/InputContainer";
 import { DownloadButton } from "./DownloadButton";
 import { ErrorComp } from "../../ui/Error";
 import { Input } from "../../ui/Input";
+import { Select } from "../../ui/Select";
 import { ProgressBar } from "../../ui/ProgressBar";
 import { Spacing } from "../../layout/Spacing";
 import { useRendering } from "../../../lib/use-rendering";
 import { COMPOSITION_ID } from "~/remotion/constants.mjs";
 import { CompositionProps } from "~/remotion/schemata";
 
+
+const AUDIO_OPTIONS = [
+  { label: "None (No Audio)", value: "" },
+  { label: "Deep", value: "deep.mp3" },
+  { label: "Future", value: "future.mp3" },
+  { label: "Gorila", value: "gorila.mp3" },
+  { label: "Relaxing", value: "relaxing.mp3" },
+];
+
 export const RenderControls: React.FC<{
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
   durationInSeconds: number;
   setDurationInSeconds: React.Dispatch<React.SetStateAction<number>>;
+  audioFileName: string;
+  setAudioFileName: ((value: string) => void) | React.Dispatch<React.SetStateAction<string>>;
   inputProps: z.infer<typeof CompositionProps>;
-}> = ({ text, setText, durationInSeconds, setDurationInSeconds, inputProps }) => {
+}> = ({ text, setText, durationInSeconds, setDurationInSeconds, audioFileName, setAudioFileName, inputProps }) => {
   const { renderMedia, state, undo } = useRendering(COMPOSITION_ID, inputProps);
   const [durationText, setDurationText] = React.useState(durationInSeconds.toString());
 
@@ -56,6 +68,18 @@ export const RenderControls: React.FC<{
               setText={handleDurationChange}
               text={durationText}
             ></Input>
+          </div>
+          <Spacing></Spacing>
+          <div className="mb-2">
+            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+              Background Audio
+            </label>
+            <Select
+              disabled={state.status === "invoking"}
+              onChange={setAudioFileName}
+              value={audioFileName}
+              options={AUDIO_OPTIONS}
+            ></Select>
           </div>
           <Spacing></Spacing>
           <AlignEnd>

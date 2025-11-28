@@ -1,8 +1,10 @@
 import { z } from "zod";
 import {
   AbsoluteFill,
+  Audio,
   Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -28,7 +30,7 @@ const logo: React.CSSProperties = {
   alignItems: "center",
 };
 
-export const Main = ({ title }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -51,6 +53,9 @@ export const Main = ({ title }: z.infer<typeof CompositionProps>) => {
 
   return (
     <AbsoluteFill style={container}>
+      {audioFileName && (
+        <Audio src={staticFile(`audio/${audioFileName}`)} volume={1} />
+      )}
       <Sequence durationInFrames={transitionStart + transitionDuration}>
         <Rings outProgress={logoOut}></Rings>
         <AbsoluteFill style={logo}>
