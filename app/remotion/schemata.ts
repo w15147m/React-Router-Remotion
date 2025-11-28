@@ -27,6 +27,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🇺🇾",
       birthYear: 1898,
       deathYear: 1967,
+      imageUrl: "https://i.pravatar.cc/300?img=1",
     },
     {
       name: "José Nasazzi",
@@ -34,6 +35,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🇺🇾",
       birthYear: 1901,
       deathYear: 1968,
+      imageUrl: "https://i.pravatar.cc/300?img=2",
     },
     {
       name: "Giuseppe Meazza",
@@ -41,6 +43,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🇮🇹",
       birthYear: 1910,
       deathYear: 1979,
+      imageUrl: "https://i.pravatar.cc/300?img=3",
     },
     {
       name: "Silvio Piola",
@@ -48,6 +51,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🇮🇹",
       birthYear: 1913,
       deathYear: 1996,
+      imageUrl: "https://i.pravatar.cc/300?img=4",
     },
     {
       name: "Matthias Sindelar",
@@ -55,6 +59,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🇦🇹",
       birthYear: 1903,
       deathYear: 1939,
+      imageUrl: "https://i.pravatar.cc/300?img=5",
     },
     {
       name: "Dixie Dean",
@@ -62,6 +67,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
       countryFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       birthYear: 1907,
       deathYear: 1980,
+      imageUrl: "https://i.pravatar.cc/300?img=6",
     },
   ],
 };

@@ -14,15 +14,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = 
   const frame = useCurrentFrame();
   const { width, fps } = useVideoConfig();
 
-  // Group cards into screens of 3
-  const cardsPerScreen = 3;
-  const screens: PersonCardData[][] = [];
-
-  for (let i = 0; i < cardsData.length; i += cardsPerScreen) {
-    screens.push(cardsData.slice(i, i + cardsPerScreen));
-  }
-
-  const numberOfScreens = screens.length;
+  const numberOfScreens = cardsData.length;
 
   // Scroll speed: move to next screen every N seconds
   const secondsPerScreen = 80;
@@ -31,38 +23,33 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = 
   const xPercent = -frame * speedPerFrame;
 
   return (
-    <>
-      {screens.map((screenCards, screenIndex) => (
-        <AbsoluteFill
-          key={screenIndex}
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(135deg, #0a4d4e 0%, #1a1a2e 100%)",
+        flexDirection: "row",
+        transform: `translateX(${xPercent}%)`,
+        width: `${numberOfScreens * 100}%`,
+      }}
+    >
+      {cardsData.map((cardData, cardIndex) => (
+        <div
+          key={cardIndex}
           style={{
-            background: "linear-gradient(135deg, #0a4d4e 0%, #1a1a2e 100%)",
-            flexDirection: "row",
-            transform: `translateX(${xPercent}%)`,
-            width: `${numberOfScreens * 100}%`,
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "40px",
+            padding: "40px",
+            position: "relative",
           }}
         >
-          {screenCards.map((cardData, cardIndex) => (
-            <div
-              key={`${screenIndex}-${cardIndex}`}
-              style={{
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "40px",
-                padding: "40px",
-                position: "relative",
-              }}
-            >
-              <PersonCard
-                data={cardData}
-                index={cardIndex}
-              />
-            </div>
-          ))}
-        </AbsoluteFill>
+          <PersonCard
+            data={cardData}
+            index={cardIndex}
+          />
+        </div>
       ))}
-    </>
+    </AbsoluteFill>
   );
 };
