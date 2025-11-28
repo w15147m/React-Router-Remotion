@@ -8,7 +8,7 @@ export const CompositionProps = z.object({
 
 export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
   title: "React Router and Remotion",
-  durationInSeconds: 7,
+  durationInSeconds: 15,
   audioFileName: "deep.mp3",
 };
 
