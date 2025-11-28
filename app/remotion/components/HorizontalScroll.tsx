@@ -51,9 +51,9 @@ export const HorizontalScroll: React.FC = () => {
 
   const numberOfSections = sections.length;
   
-  // Fixed speed: 1 screen every 4 seconds (approx)
-  // 100% width / (4 * fps) per frame
-  const secondsPerScreen = 4;
+  // Fixed speed: 1 screen every 8 seconds (approx)
+  // 100% width / (8 * fps) per frame
+  const secondsPerScreen = 220;
   const speedPerFrame = 100 / (secondsPerScreen * fps);
   
   const xPercent = -frame * speedPerFrame;

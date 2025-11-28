@@ -13,7 +13,7 @@ import { CompositionProps } from "../remotion/schemata";
 
 export default function Index() {
   const [text, setText] = useState("React Router + Remotion");
-  const [durationInSeconds, setDurationInSeconds] = useState(15);
+  const [durationInSeconds, setDurationInSeconds] = useState(7);
   const [audioFileName, setAudioFileName] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("audioFileName") || "deep.mp3";
