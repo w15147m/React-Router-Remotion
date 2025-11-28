@@ -4,10 +4,10 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { PersonCard, PersonCardData } from "./PersonCard";
+import { GenericCard, GenericCardData } from "./GenericCard";
 
 interface HorizontalScrollProps {
-  cardsData?: PersonCardData[];
+  cardsData?: GenericCardData[];
 }
 
 export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = [] }) => {
@@ -44,7 +44,7 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = 
             position: "relative",
           }}
         >
-          <PersonCard
+          <GenericCard
             data={cardData}
             index={cardIndex}
           />

@@ -1,5 +1,5 @@
 import { Player } from "@remotion/player";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   COMPOSITION_FPS,
   COMPOSITION_HEIGHT,
@@ -9,7 +9,8 @@ import { z } from "zod";
 import { Main } from "../remotion/components/Main";
 import { RenderControls } from "../components/features/rendering/RenderControls";
 
-import { CompositionProps, defaultMyCompProps } from "../remotion/schemata";
+import { CompositionProps, GenericCardData } from "../remotion/schemata";
+import { videoItems } from "../data/data.js";
 
 export default function Index() {
   const [text, setText] = useState("React Router + Remotion");
@@ -20,6 +21,33 @@ export default function Index() {
     }
     return "deep.mp3";
   });
+
+  // Load cards data from localStorage
+  const [cardsData, setCardsData] = useState<z.infer<typeof GenericCardData>[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("videoItems");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error("Failed to parse videoItems from localStorage:", e);
+        }
+      }
+    }
+    return [];
+  });
+
+  // On mount, load data from data.js and save to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("videoItems");
+      if (!stored) {
+        // First time: save data from data.js to localStorage
+        localStorage.setItem("videoItems", JSON.stringify(videoItems));
+        setCardsData(videoItems);
+      }
+    }
+  }, []);
 
   const handleAudioChange = (value: string) => {
     setAudioFileName(value);
@@ -34,9 +62,9 @@ export default function Index() {
       title: text,
       durationInSeconds,
       audioFileName: audioFileName || undefined,
-      cardsData: defaultMyCompProps.cardsData,
+      cardsData: cardsData,
     };
-  }, [text, durationInSeconds, audioFileName]);
+  }, [text, durationInSeconds, audioFileName, cardsData]);
 
   const durationInFrames = useMemo(() => {
     return Math.round(durationInSeconds * COMPOSITION_FPS);
