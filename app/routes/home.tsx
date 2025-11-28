@@ -9,7 +9,7 @@ import { z } from "zod";
 import { Main } from "../remotion/components/Main";
 import { RenderControls } from "../components/features/rendering/RenderControls";
 
-import { CompositionProps } from "../remotion/schemata";
+import { CompositionProps, defaultMyCompProps } from "../remotion/schemata";
 
 export default function Index() {
   const [text, setText] = useState("React Router + Remotion");
@@ -34,6 +34,7 @@ export default function Index() {
       title: text,
       durationInSeconds,
       audioFileName: audioFileName || undefined,
+      cardsData: defaultMyCompProps.cardsData,
     };
   }, [text, durationInSeconds, audioFileName]);
 

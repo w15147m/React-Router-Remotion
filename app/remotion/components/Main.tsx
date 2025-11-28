@@ -15,7 +15,7 @@ const container: React.CSSProperties = {
   backgroundColor: "white",
 };
 
-export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ title, audioFileName, cardsData }: z.infer<typeof CompositionProps>) => {
   const { fps } = useVideoConfig();
 
   return (
@@ -25,7 +25,7 @@ export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>)
           <Audio src={staticFile(`audio/${audioFileName}`)} volume={1} />
         </Loop>
       )}
-      <HorizontalScroll />
+      <HorizontalScroll cardsData={cardsData} />
     </AbsoluteFill>
   );
 };
