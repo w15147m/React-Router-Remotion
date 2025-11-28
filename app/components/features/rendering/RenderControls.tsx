@@ -48,38 +48,38 @@ export const RenderControls: React.FC<{
       state.status === "invoking" ||
       state.status === "error" ? (
         <>
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
-              Video Title
-            </label>
-            <Input
-              disabled={state.status === "invoking"}
-              setText={setText}
-              text={text}
-            ></Input>
-          </div>
-          <Spacing></Spacing>
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
-              Duration (seconds)
-            </label>
-            <Input
-              disabled={state.status === "invoking"}
-              setText={handleDurationChange}
-              text={durationText}
-            ></Input>
-          </div>
-          <Spacing></Spacing>
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
-              Background Audio
-            </label>
-            <Select
-              disabled={state.status === "invoking"}
-              onChange={setAudioFileName}
-              value={audioFileName}
-              options={AUDIO_OPTIONS}
-            ></Select>
+          <div className="flex flex-row gap-4">
+            <div className="mb-2 flex-1">
+              <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+                Video Title
+              </label>
+              <Input
+                disabled={state.status === "invoking"}
+                setText={setText}
+                text={text}
+              ></Input>
+            </div>
+            <div className="mb-2 flex-1">
+              <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+                Duration (seconds)
+              </label>
+              <Input
+                disabled={state.status === "invoking"}
+                setText={handleDurationChange}
+                text={durationText}
+              ></Input>
+            </div>
+            <div className="mb-2 flex-1">
+              <label className="block text-sm font-medium text-foreground opacity-80 mb-1">
+                Background Audio
+              </label>
+              <Select
+                disabled={state.status === "invoking"}
+                onChange={setAudioFileName}
+                value={audioFileName}
+                options={AUDIO_OPTIONS}
+              ></Select>
+            </div>
           </div>
           <Spacing></Spacing>
           <AlignEnd>
