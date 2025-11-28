@@ -45,7 +45,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({ data, index }) => {
   return (
     <div
       style={{
-        width: "30%",
+        width: "625px",
         height: "85%",
         backgroundColor: "#1a1a1a",
         borderRadius: "20px",
