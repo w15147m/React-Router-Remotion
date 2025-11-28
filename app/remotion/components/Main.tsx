@@ -3,20 +3,27 @@ import {
   AbsoluteFill,
   Audio,
   staticFile,
+  Loop,
+  useVideoConfig,
 } from "remotion";
 import React from "react";
 import { CompositionProps } from "../schemata";
 import { HorizontalScroll } from "./HorizontalScroll";
+import { audioDurations } from "../audioData";
 
 const container: React.CSSProperties = {
   backgroundColor: "white",
 };
 
 export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>) => {
+  const { fps } = useVideoConfig();
+
   return (
     <AbsoluteFill style={container}>
       {audioFileName && (
-        <Audio src={staticFile(`audio/${audioFileName}`)} volume={1} />
+        <Loop durationInFrames={Math.ceil((audioDurations[audioFileName] || 10) * fps)}>
+          <Audio src={staticFile(`audio/${audioFileName}`)} volume={1} />
+        </Loop>
       )}
       <HorizontalScroll />
     </AbsoluteFill>
