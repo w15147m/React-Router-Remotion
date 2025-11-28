@@ -46,13 +46,14 @@ export const PersonCard: React.FC<PersonCardProps> = ({ data, index }) => {
     <div
       style={{
         width: "625px",
-        height: "85%",
+        height: "100%",
         backgroundColor: "#1a1a1a",
         borderRadius: "20px",
         overflow: "hidden",
         boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
         display: "flex",
         flexDirection: "column",
+        marginBottom: "5%px",
         transform: `scale(${scale})`,
         opacity,
       }}
