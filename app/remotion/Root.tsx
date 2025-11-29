@@ -5,7 +5,7 @@ import {
   COMPOSITION_ID,
   COMPOSITION_WIDTH,
 } from "./constants.mjs";
-import { Main } from "./components/Main";
+import { Main } from "../pages/home/components/Main";
 import { CompositionProps, defaultMyCompProps } from "./schemata";
 import { z } from "zod";
 

@@ -4,13 +4,13 @@ import {
   COMPOSITION_FPS,
   COMPOSITION_HEIGHT,
   COMPOSITION_WIDTH,
-} from "../remotion/constants.mjs";
+} from "../../remotion/constants.mjs";
 import { z } from "zod";
-import { Main } from "../remotion/components/Main";
-import { RenderControls } from "../components/features/rendering/RenderControls";
+import { Main } from "./components/Main";
+import { RenderControls } from "../../components/features/rendering/RenderControls";
 
-import { CompositionProps, GenericCardData } from "../remotion/schemata";
-import { videoItems } from "../data/data.js";
+import { CompositionProps, GenericCardData } from "../../remotion/schemata";
+import { videoItems } from "../../data/data.js";
 
 export default function Index() {
   const [text, setText] = useState("React Router + Remotion");

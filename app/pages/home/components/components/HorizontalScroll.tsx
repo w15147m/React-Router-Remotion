@@ -4,7 +4,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { GenericCard, GenericCardData } from "./GenericCard";
+import { GenericCard, GenericCardData } from "../../../../components/cards/GenericCard";
 
 interface HorizontalScrollProps {
   cardsData?: GenericCardData[];

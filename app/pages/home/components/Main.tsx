@@ -7,9 +7,9 @@ import {
   useVideoConfig,
 } from "remotion";
 import React from "react";
-import { CompositionProps } from "../schemata";
-import { HorizontalScroll } from "./HorizontalScroll";
-import { audioDurations } from "../audioData";
+import { CompositionProps } from "../../../remotion/schemata";
+import { HorizontalScroll } from "./components/HorizontalScroll";
+import { audioDurations } from "../../../remotion/audioData";
 
 const container: React.CSSProperties = {
   backgroundColor: "white",
