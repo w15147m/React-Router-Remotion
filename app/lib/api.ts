@@ -9,13 +9,13 @@ import { RenderResponse } from "./types";
 
 export type ApiResponse<Res> =
   | {
-      type: "error";
-      message: string;
-    }
+    type: "error";
+    message: string;
+  }
   | {
-      type: "success";
-      data: Res;
-    };
+    type: "success";
+    data: Res;
+  };
 
 const makeRequest = async <Res>(
   endpoint: string,
@@ -38,11 +38,14 @@ const makeRequest = async <Res>(
 
 export const renderVideo = async ({
   inputProps,
+  compositionId,
 }: {
   inputProps: z.infer<typeof CompositionProps>;
+  compositionId: string;
 }) => {
   const body: z.infer<typeof RenderRequest> = {
     inputProps,
+    compositionId,
   };
 
   return makeRequest<RenderResponse>("/api/lambda/render", body);

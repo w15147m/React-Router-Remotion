@@ -1,6 +1,5 @@
 import { ActionFunctionArgs } from "react-router";
 import { renderVideo } from "../../lib/render-video.server";
-import { COMPOSITION_ID } from "../../remotion/constants.mjs";
 import { RenderRequest, CompositionProps } from "../../remotion/schemata";
 import type { ApiResponse } from "../../lib/api";
 import type { RenderResponse } from "../../lib/types";
@@ -8,7 +7,7 @@ import type { RenderResponse } from "../../lib/types";
 export async function action({ request }: ActionFunctionArgs) {
   try {
     const body = await request.json();
-    const { inputProps } = RenderRequest.parse(body);
+    const { inputProps, compositionId } = RenderRequest.parse(body);
 
     // Validate input props
     CompositionProps.parse(inputProps);
@@ -22,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const fileName = `${sanitizedTitle}-${timestamp}.mp4`;
 
     const result = await renderVideo({
-      composition: COMPOSITION_ID,
+      composition: compositionId,
       inputProps,
       outName: fileName,
     });

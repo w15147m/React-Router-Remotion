@@ -27,6 +27,21 @@ export const RemotionRoot = () => {
           };
         }}
       />
+      <Composition
+        id="Shorts"
+        component={Main}
+        durationInFrames={Math.round(defaultMyCompProps.durationInSeconds * COMPOSITION_FPS)}
+        fps={COMPOSITION_FPS}
+        width={1080}
+        height={1920}
+        defaultProps={defaultMyCompProps}
+        calculateMetadata={({ props }: { props: z.infer<typeof CompositionProps> }) => {
+          return {
+            durationInFrames: Math.round(props.durationInSeconds * COMPOSITION_FPS),
+            props,
+          };
+        }}
+      />
     </>
   );
 };

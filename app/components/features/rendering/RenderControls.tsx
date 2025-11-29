@@ -30,8 +30,9 @@ export const RenderControls: React.FC<{
   audioFileName: string;
   setAudioFileName: ((value: string) => void) | React.Dispatch<React.SetStateAction<string>>;
   inputProps: z.infer<typeof CompositionProps>;
-}> = ({ text, setText, durationInSeconds, setDurationInSeconds, audioFileName, setAudioFileName, inputProps }) => {
-  const { renderMedia, state, undo } = useRendering(COMPOSITION_ID, inputProps);
+  compositionId?: string;
+}> = ({ text, setText, durationInSeconds, setDurationInSeconds, audioFileName, setAudioFileName, inputProps, compositionId = COMPOSITION_ID }) => {
+  const { renderMedia, state, undo } = useRendering(compositionId, inputProps);
   const [durationText, setDurationText] = React.useState(durationInSeconds.toString());
 
   const handleDurationChange = (value: string) => {
@@ -45,8 +46,8 @@ export const RenderControls: React.FC<{
   return (
     <InputContainer>
       {state.status === "init" ||
-      state.status === "invoking" ||
-      state.status === "error" ? (
+        state.status === "invoking" ||
+        state.status === "error" ? (
         <>
           <div className="flex flex-row gap-4">
             <div className="mb-2 flex-1">

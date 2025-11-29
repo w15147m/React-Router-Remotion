@@ -89,17 +89,18 @@ export default function Index() {
         </div>
       </div>
 
-    <div className=" ml-10  m-auto mb-10 ">
+      <div className=" ml-10  m-auto mb-10 ">
         <RenderControls
-        text={text}
-        setText={setText}
-        durationInSeconds={durationInSeconds}
-        setDurationInSeconds={setDurationInSeconds}
-        audioFileName={audioFileName}
-        setAudioFileName={handleAudioChange}
-        inputProps={inputProps}
-      ></RenderControls>
-    </div>
+          text={text}
+          setText={setText}
+          durationInSeconds={durationInSeconds}
+          setDurationInSeconds={setDurationInSeconds}
+          audioFileName={audioFileName}
+          setAudioFileName={handleAudioChange}
+          inputProps={inputProps}
+          compositionId="Shorts"
+        ></RenderControls>
+      </div>
     </div>
   );
 }

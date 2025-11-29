@@ -40,7 +40,7 @@ export const useRendering = (
         status: "rendering",
       });
 
-      const result = await renderVideo({ inputProps });
+      const result = await renderVideo({ inputProps, compositionId: id });
 
       setState({
         url: result.outputPath,
@@ -53,7 +53,7 @@ export const useRendering = (
         error: err as Error,
       });
     }
-  }, [inputProps]);
+  }, [inputProps, id]);
 
   const undo = useCallback(() => {
     setState({ status: "init" });

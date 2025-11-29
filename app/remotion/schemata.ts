@@ -30,6 +30,7 @@ export const defaultMyCompProps: z.infer<typeof CompositionProps> = {
 
 export const RenderRequest = z.object({
   inputProps: CompositionProps,
+  compositionId: z.string(),
 });
 
 export const ProgressRequest = z.object({
