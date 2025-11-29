@@ -1,10 +1,6 @@
 import { Player } from "@remotion/player";
 import { useMemo, useState, useEffect } from "react";
-import {
-  COMPOSITION_FPS,
-  COMPOSITION_HEIGHT,
-  COMPOSITION_WIDTH,
-} from "../../remotion/constants.mjs";
+import { COMPOSITION_FPS } from "../../remotion/constants.mjs";
 import { z } from "zod";
 import { Main } from "./components/Main";
 import { RenderControls } from "../../components/features/rendering/RenderControls";
@@ -23,19 +19,21 @@ export default function Index() {
   });
 
   // Load cards data from localStorage
-  const [cardsData, setCardsData] = useState<z.infer<typeof GenericCardData>[]>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("videoItems");
-      if (stored) {
-        try {
-          return JSON.parse(stored);
-        } catch (e) {
-          console.error("Failed to parse videoItems from localStorage:", e);
+  const [cardsData, setCardsData] = useState<z.infer<typeof GenericCardData>[]>(
+    () => {
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("videoItems");
+        if (stored) {
+          try {
+            return JSON.parse(stored);
+          } catch (e) {
+            console.error("Failed to parse videoItems from localStorage:", e);
+          }
         }
       }
-    }
-    return [];
-  });
+      return [];
+    },
+  );
 
   // On mount, load data from data.js and save to localStorage
   useEffect(() => {
@@ -71,17 +69,17 @@ export default function Index() {
   }, [durationInSeconds]);
 
   return (
-    <div>
-      <div className="max-w-screen-md m-auto mb-5">
-        <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-5 ">
-           <Player
+    <div className=" flex">
+      <div className="max-w-[360px] min-w-[360px]  m-auto mb-5 ">
+        <div className="overflow-hidden max-h-[700px] rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-5 ">
+          <Player
             key={`player-${audioFileName}`}
             component={Main}
             inputProps={inputProps}
             durationInFrames={durationInFrames}
             fps={COMPOSITION_FPS}
-            compositionHeight={COMPOSITION_HEIGHT}
-            compositionWidth={COMPOSITION_WIDTH}
+            compositionHeight={1920}
+            compositionWidth={1080}
             style={{
               width: "100%",
             }}
@@ -89,17 +87,19 @@ export default function Index() {
             loop
           />
         </div>
-        <RenderControls
-          text={text}
-          setText={setText}
-          durationInSeconds={durationInSeconds}
-          setDurationInSeconds={setDurationInSeconds}
-          audioFileName={audioFileName}
-          setAudioFileName={handleAudioChange}
-          inputProps={inputProps}
-        ></RenderControls>
-
       </div>
+
+    <div className=" ml-10  m-auto mb-10 ">
+        <RenderControls
+        text={text}
+        setText={setText}
+        durationInSeconds={durationInSeconds}
+        setDurationInSeconds={setDurationInSeconds}
+        audioFileName={audioFileName}
+        setAudioFileName={handleAudioChange}
+        inputProps={inputProps}
+      ></RenderControls>
+    </div>
     </div>
   );
 }
