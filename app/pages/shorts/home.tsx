@@ -73,8 +73,8 @@ export default function Index() {
   return (
     <div>
       <div className="max-w-screen-md m-auto mb-5">
-        <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16">
-          <Player
+        <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-5 ">
+           <Player
             key={`player-${audioFileName}`}
             component={Main}
             inputProps={inputProps}

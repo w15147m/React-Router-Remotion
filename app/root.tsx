@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import "./styles/app.css";
+import { AppLayout } from "./components/layout/AppLayout";
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,7 +27,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <AppLayout>
+          <Outlet />
+        </AppLayout>
         <ScrollRestoration />
         <Scripts />
       </body>
