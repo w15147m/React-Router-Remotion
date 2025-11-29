@@ -6,6 +6,7 @@ import {
   COMPOSITION_WIDTH,
 } from "./constants.mjs";
 import { Main } from "../pages/videos/components/Main";
+import { Main as ShortsMain } from "../pages/shorts/components/Main";
 import { CompositionProps, defaultMyCompProps } from "./schemata";
 import { z } from "zod";
 
@@ -29,7 +30,7 @@ export const RemotionRoot = () => {
       />
       <Composition
         id="Shorts"
-        component={Main}
+        component={ShortsMain}
         durationInFrames={Math.round(defaultMyCompProps.durationInSeconds * COMPOSITION_FPS)}
         fps={COMPOSITION_FPS}
         width={1080}

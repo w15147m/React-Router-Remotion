@@ -32,6 +32,12 @@ export function DesktopSidebar() {
         >
           <span>Short</span>
         </Link>
+        <Link
+          className={getLinkClass("/test")}
+          to="/test"
+        >
+          <span>Test</span>
+        </Link>
       </nav>
     </div>
   );
