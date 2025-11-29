@@ -1,6 +1,18 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export function DesktopSidebar() {
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const getLinkClass = (path: string) => {
+    const isActive = pathname === path;
+    const baseClass = "block rounded-lg px-3 py-2 transition-colors";
+    const activeClass = "bg-teal-600 font-semibold text-white hover:bg-teal-700 dark:bg-teal-600 dark:hover:bg-teal-700";
+    const inactiveClass = "font-medium hover:bg-neutral-100 hover:text-black dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white";
+
+    return `${baseClass} ${isActive ? activeClass : inactiveClass}`;
+  };
+
   return (
     <div
       data-slot="card"
@@ -9,13 +21,13 @@ export function DesktopSidebar() {
       <nav className="space-y-1 text-sm">
         <h3 className="mb-2 text-lg font-bold ">Admin Menu</h3>
         <Link
-          className="block rounded-lg px-3 py-2 transition-colors font-medium hover:bg-neutral-100 hover:text-black dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+          className={getLinkClass("/")}
           to="/"
         >
           <span>video</span>
         </Link>
         <Link
-          className="block rounded-lg px-3 py-2 transition-colors bg-teal-600 font-semibold text-white hover:bg-teal-700 dark:bg-teal-600 dark:hover:bg-teal-700"
+          className={getLinkClass("/short")}
           to="/short"
         >
           <span>Short</span>
@@ -26,17 +38,29 @@ export function DesktopSidebar() {
 }
 
 export function MobileNav() {
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const getLinkClass = (path: string) => {
+    const isActive = pathname === path;
+    const baseClass = "rounded-md px-3 py-2 transition-colors";
+    const activeClass = "bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white";
+    const inactiveClass = "text-neutral-600 hover:bg-neutral-100 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white";
+
+    return `${baseClass} ${isActive ? activeClass : inactiveClass}`;
+  };
+
   return (
     <nav className="flex flex-wrap lg:hidden p-2 items-center justify-start gap-4 text-sm">
       <Link
-        className="rounded-md px-3 py-2 transition-colors text-neutral-600 hover:bg-neutral-100 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+        className={getLinkClass("/playlist")}
         to="/playlist"
       >
         Playlist
       </Link>
       <Link
-        className="rounded-md px-3 py-2 transition-colors bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white"
-        to="/shorts"
+        className={getLinkClass("/short")}
+        to="/short"
       >
         shorts
       </Link>
