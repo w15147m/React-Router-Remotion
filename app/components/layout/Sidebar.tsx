@@ -4,23 +4,21 @@ export function DesktopSidebar() {
   return (
     <div
       data-slot="card"
-      className="bg-card text-card-foreground flex-col gap-6 rounded-xl border hidden w-64 shrink-0 p-4 shadow-lg lg:block h-fit"
+      className="inset-shadow-2xs bg-card text-card-foreground flex-col gap-6 rounded-xl hidden w-64 shrink-0 p-4 shadow-lg lg:block h-fit"
     >
       <nav className="space-y-1 text-sm">
-        <h3 className="mb-2 text-lg font-bold text-neutral-900 dark:text-neutral-100">
-          Admin Menu
-        </h3>
+        <h3 className="mb-2 text-lg font-bold ">Admin Menu</h3>
         <Link
-          className="block rounded-lg p-2 transition-colors text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-          to="/playlist"
+          className="block rounded-lg px-3 py-2 transition-colors font-medium hover:bg-neutral-100 hover:text-black dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+          to="/"
         >
-          <span>Playlist</span>
+          <span>video</span>
         </Link>
         <Link
-          className="block rounded-lg p-2 transition-colors bg-neutral-100 font-semibold text-primary dark:bg-neutral-800 dark:text-primary"
-          to="/video"
+          className="block rounded-lg px-3 py-2 transition-colors bg-teal-600 font-semibold text-white hover:bg-teal-700 dark:bg-teal-600 dark:hover:bg-teal-700"
+          to="/short"
         >
-          <span>Video List</span>
+          <span>Short</span>
         </Link>
       </nav>
     </div>
@@ -31,16 +29,16 @@ export function MobileNav() {
   return (
     <nav className="flex flex-wrap lg:hidden p-2 items-center justify-start gap-4 text-sm">
       <Link
-        className="rounded-md px-3 py-2 transition-colors text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+        className="rounded-md px-3 py-2 transition-colors text-neutral-600 hover:bg-neutral-100 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
         to="/playlist"
       >
         Playlist
       </Link>
       <Link
-        className="rounded-md px-3 py-2 transition-colors bg-neutral-100 font-semibold text-primary dark:bg-neutral-800 dark:text-primary"
-        to="/video"
+        className="rounded-md px-3 py-2 transition-colors bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white"
+        to="/shorts"
       >
-        Video List
+        shorts
       </Link>
     </nav>
   );
