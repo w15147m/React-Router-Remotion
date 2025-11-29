@@ -1,24 +1,102 @@
+import React, { useState, useEffect } from 'react';
+
+const CARDS = 10;
+const MAX_VISIBILITY = 3;
+const AUTO_SCROLL_INTERVAL = 3000; // 3 seconds
+
+interface CardProps {
+  title: string;
+  content: string;
+}
+
+const Card = ({ title, content }: CardProps) => (
+  <div className='carousel-card'>
+    <h2>{title}</h2>
+    <p>{content}</p>
+  </div>
+);
+
+interface CarouselProps {
+  children: React.ReactNode;
+}
+
+const ChevronLeft = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+);
+
+const ChevronRight = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+const Carousel = ({ children }: CarouselProps) => {
+  const [active, setActive] = useState(2);
+  const count = React.Children.count(children);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => {
+        // Loop back to start when reaching the end
+        if (prev >= count - 1) {
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, AUTO_SCROLL_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [count]);
+
+  return (
+    <div className='carousel-container'>
+      {active > 0 && (
+        <button className='carousel-nav left' onClick={() => setActive(i => i - 1)}>
+          <ChevronLeft />
+        </button>
+      )}
+      {React.Children.map(children, (child, i) => (
+        <div
+          className='carousel-card-container'
+          style={{
+            // @ts-ignore - CSS custom properties
+            '--active': i === active ? 1 : 0,
+            '--offset': (active - i) / 3,
+            '--direction': Math.sign(active - i),
+            '--abs-offset': Math.abs(active - i) / 3,
+            pointerEvents: active === i ? 'auto' : 'none',
+            opacity: Math.abs(active - i) >= MAX_VISIBILITY ? '0' : '1',
+            display: Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block',
+          }}
+        >
+          {child}
+        </div>
+      ))}
+      {active < count - 1 && (
+        <button className='carousel-nav right' onClick={() => setActive(i => i + 1)}>
+          <ChevronRight />
+        </button>
+      )}
+    </div>
+  );
+};
+
 export default function TestPage() {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-4">Test Page</h1>
-      <p className="text-lg mb-4">This is a test page for development and testing purposes.</p>
-
-      <div className="space-y-4">
-        <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
-          <h2 className="text-xl font-semibold mb-2">Test Section 1</h2>
-          <p>You can use this page to test components, layouts, or any other features.</p>
-        </div>
-
-        <div className="p-4 bg-green-100 dark:bg-green-900 rounded-lg">
-          <h2 className="text-xl font-semibold mb-2">Test Section 2</h2>
-          <p>Add your test content here.</p>
-        </div>
-
-        <div className="p-4 bg-purple-100 dark:bg-purple-900 rounded-lg">
-          <h2 className="text-xl font-semibold mb-2">Test Section 3</h2>
-          <p>This section can be used for experimentation.</p>
-        </div>
+    <div className='carousel-app'>
+      <div className='carousel-wrapper'>
+        <Carousel>
+          {[...new Array(CARDS)].map((_, i) => (
+            <Card
+              key={i}
+              title={'Card ' + (i + 1)}
+              content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            />
+          ))}
+        </Carousel>
       </div>
     </div>
   );
