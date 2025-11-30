@@ -7,7 +7,7 @@ export const videoItems = [
     yearRange: "2002-Present",
     label: "Goals",
     rankNumber: 1,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=1",
   },
   {
@@ -18,7 +18,7 @@ export const videoItems = [
     yearRange: "2004-Present",
     label: "Goals",
     rankNumber: 2,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=2",
   },
   {
@@ -29,7 +29,7 @@ export const videoItems = [
     yearRange: "1956-1977",
     label: "Goals",
     rankNumber: 3,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=3",
   },
   {
@@ -40,7 +40,7 @@ export const videoItems = [
     yearRange: "1985-2008",
     label: "Goals",
     rankNumber: 4,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=4",
   },
   {
@@ -51,7 +51,7 @@ export const videoItems = [
     yearRange: "1943-1966",
     label: "Goals",
     rankNumber: 5,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=5",
   },
   {
@@ -62,7 +62,7 @@ export const videoItems = [
     yearRange: "1931-1955",
     label: "Goals",
     rankNumber: 6,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=6",
   },
   {
@@ -73,7 +73,7 @@ export const videoItems = [
     yearRange: "1930-1952",
     label: "Goals",
     rankNumber: 7,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=7",
   },
   {
@@ -84,7 +84,7 @@ export const videoItems = [
     yearRange: "1963-1981",
     label: "Goals",
     rankNumber: 8,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=8",
   },
   {
@@ -95,7 +95,7 @@ export const videoItems = [
     yearRange: "1957-1979",
     label: "Goals",
     rankNumber: 9,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=9",
   },
   {
@@ -106,7 +106,7 @@ export const videoItems = [
     yearRange: "2006-Present",
     label: "Goals",
     rankNumber: 10,
-    rankLabel: "Most Goals",
+    rankLabel: "Goals",
     mediaUrl: "https://i.pravatar.cc/300?img=10",
   },
 ];

@@ -57,18 +57,24 @@ export function MobileNav() {
   };
 
   return (
-    <nav className="flex flex-wrap lg:hidden p-2 items-center justify-start gap-4 text-sm">
+    <nav className="flex flex-wrap lg:hidden p-2 items-center justify-start gap-4 text-sm ">
       <Link
-        className={getLinkClass("/playlist")}
-        to="/playlist"
+        className={getLinkClass("/")}
+        to="/"
       >
-        Playlist
+        <span>video</span>
       </Link>
       <Link
         className={getLinkClass("/short")}
         to="/short"
       >
-        shorts
+        <span>Short</span>
+      </Link>
+      <Link
+        className={getLinkClass("/test")}
+        to="/test"
+      >
+        <span>Test</span>
       </Link>
     </nav>
   );
