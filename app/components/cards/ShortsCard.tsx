@@ -81,7 +81,7 @@ export interface ShortsCardProps {
 //             {data.icon}
 //           </div>
 //         )}
-        
+
 //         {data.mediaUrl ? (
 //           <Img
 //             src={data.mediaUrl}
@@ -140,7 +140,7 @@ export interface ShortsCardProps {
 //           }}>
 //             {data.title}
 //           </div>
-          
+
 //           {data.subtitle && (
 //             <div style={{
 //               fontFamily,
@@ -152,7 +152,7 @@ export interface ShortsCardProps {
 //               {data.subtitle}
 //             </div>
 //           )}
-          
+
 //           {data.label && (
 //             <div style={{
 //               display: 'inline-block',
@@ -347,7 +347,7 @@ export interface ShortsCardProps {
 //               {data.subtitle}
 //             </div>
 //           )}
-          
+
 //           {data.label && (
 //             <div style={{
 //               display: 'inline-block',
@@ -513,7 +513,7 @@ export interface ShortsCardProps {
 //           }}>
 //             {data.title}
 //           </div>
-          
+
 //           {data.subtitle && (
 //             <div style={{
 //               fontFamily,
@@ -525,7 +525,7 @@ export interface ShortsCardProps {
 //               {data.subtitle}
 //             </div>
 //           )}
-          
+
 //           {data.label && (
 //             <div style={{
 //               display: 'inline-block',
@@ -634,7 +634,7 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
             {data.icon}
           </div>
         )}
-        
+
         {data.mediaUrl ? (
           <Img
             src={data.mediaUrl}
@@ -693,7 +693,7 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
           }}>
             {data.title}
           </div>
-          
+
           {data.subtitle && (
             <div style={{
               fontFamily: 'Georgia, serif',
@@ -706,7 +706,7 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
               {data.subtitle}
             </div>
           )}
-          
+
           {data.label && (
             <div style={{
               display: 'inline-block',
@@ -725,20 +725,6 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
             </div>
           )}
         </div>
-
-        {data.highlightValue && (
-          <div style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: '95px',
-            fontWeight: '700',
-            color: '#2a2a2a',
-            letterSpacing: '2px',
-            lineHeight: '1',
-            transform: `scale(${pulse})`,
-          }}>
-            {data.highlightValue}
-          </div>
-        )}
 
         {data.rankNumber !== undefined && data.rankLabel && (
           <div style={{

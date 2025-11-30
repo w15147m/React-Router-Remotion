@@ -11,7 +11,6 @@ export interface GenericCardData {
   country?: string;
   yearRange?: string;
   label?: string;
-  highlightValue?: string;
   rankNumber?: number;
   rankLabel?: string;
   mediaUrl?: string;
@@ -203,25 +202,6 @@ export const GenericCard: React.FC<GenericCardProps> = ({ data, index }) => {
             }}
           >
             {data.label}
-          </div>
-        )}
-
-        {/* Highlight Value (Year/Number) */}
-        {data.highlightValue && (
-          <div
-            style={{
-              backgroundColor: "#2a2a2a",
-              color: "#FFD700",
-              padding: "25px",
-              textAlign: "center",
-              fontFamily,
-              fontSize: "56px",
-              fontWeight: "bold",
-              letterSpacing: "4px",
-              textShadow: "0 0 20px rgba(255,215,0,0.5)",
-            }}
-          >
-            {data.highlightValue}
           </div>
         )}
 

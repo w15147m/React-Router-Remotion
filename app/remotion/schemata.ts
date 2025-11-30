@@ -7,7 +7,6 @@ export const GenericCardData = z.object({
   country: z.string().optional(),
   yearRange: z.string().optional(),
   label: z.string().optional(),
-  highlightValue: z.string().optional(),
   rankNumber: z.number().optional(),
   rankLabel: z.string().optional(),
   mediaUrl: z.string().optional(),
