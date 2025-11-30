@@ -13,21 +13,21 @@ export default function Index() {
   const [durationInSeconds, setDurationInSeconds] = useState(7);
   const [audioFileName, setAudioFileName] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("audioFileName") || "deep.mp3";
+      return sessionStorage.getItem("audioFileName") || "deep.mp3";
     }
     return "deep.mp3";
   });
 
-  // Load cards data from localStorage
+  // Load cards data from sessionStorage
   const [cardsData, setCardsData] = useState<z.infer<typeof GenericCardData>[]>(
     () => {
       if (typeof window !== "undefined") {
-        const stored = localStorage.getItem("videoItems");
+        const stored = sessionStorage.getItem("videoItems");
         if (stored) {
           try {
             return JSON.parse(stored);
           } catch (e) {
-            console.error("Failed to parse videoItems from localStorage:", e);
+            console.error("Failed to parse videoItems from sessionStorage:", e);
           }
         }
       }
@@ -35,22 +35,22 @@ export default function Index() {
     },
   );
 
-  // On mount, load data from data.js and save to localStorage
+  // On mount, load data from data.js and save to sessionStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("videoItems");
+      const stored = sessionStorage.getItem("videoItems");
       if (!stored) {
-        // First time: save data from data.js to localStorage
-        localStorage.setItem("videoItems", JSON.stringify(videoItems));
+        // First time: save data from data.js to sessionStorage
+        sessionStorage.setItem("videoItems", JSON.stringify(videoItems));
         setCardsData(videoItems);
       }
     }
   }, []);
 
-  // Save audioFileName to localStorage when changed
+  // Save audioFileName to sessionStorage when changed
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("audioFileName", audioFileName);
+      sessionStorage.setItem("audioFileName", audioFileName);
     }
   }, [audioFileName]);
 
