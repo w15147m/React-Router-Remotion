@@ -1,40 +1,10 @@
 import React from 'react';
 import { useCurrentFrame, useVideoConfig } from 'remotion';
+import { z } from 'zod';
+import { GenericCardData } from '../../../../remotion/schemata';
+import { ShortsCard } from '../../../../components/cards/ShortsCard';
 
 const MAX_VISIBILITY = 3;
-
-interface CardProps {
-  title: string;
-  content: string;
-}
-
-const Card = ({ title, content }: CardProps) => (
-  <div style={{
-    width: '100%',
-    height: '100%',
-    padding: '3rem',
-    backgroundColor: 'hsl(280deg, 40%, 85%)',
-    borderRadius: '1.5rem',
-    color: '#9CA3AF',
-    textAlign: 'justify',
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    boxSizing: 'border-box',
-  }}>
-    <h2 style={{
-      textAlign: 'center',
-      fontSize: '3rem',
-      fontWeight: 'bold',
-      margin: '0 0 0.7em',
-      color: '#1F2937',
-    }}>{title}</h2>
-    <p style={{
-      fontSize: '1.25rem',
-      lineHeight: 1.6,
-    }}>{content}</p>
-  </div>
-);
 
 interface RemotionCarouselProps {
   children: React.ReactNode;
@@ -105,4 +75,12 @@ export const RemotionCarousel = ({ children, transitionDuration = 2 }: RemotionC
   );
 };
 
-export const RemotionCarouselCard = Card;
+interface CarouselCardProps {
+  data: z.infer<typeof GenericCardData>;
+}
+
+export const RemotionCarouselCard: React.FC<CarouselCardProps> = ({ data }) => {
+  const frame = useCurrentFrame();
+  // Pass frame as index for animation purposes
+  return <ShortsCard data={data} index={0} />;
+};

@@ -47,31 +47,32 @@ export default function Index() {
     }
   }, []);
 
-  const handleAudioChange = (value: string) => {
-    setAudioFileName(value);
+  // Save audioFileName to localStorage when changed
+  useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("audioFileName", value);
-      window.location.reload();
+      localStorage.setItem("audioFileName", audioFileName);
     }
-  };
+  }, [audioFileName]);
 
-  const inputProps: z.infer<typeof CompositionProps> = useMemo(() => {
-    return {
+  const durationInFrames = useMemo(
+    () => Math.round(durationInSeconds * COMPOSITION_FPS),
+    [durationInSeconds]
+  );
+
+  const inputProps = useMemo(
+    (): z.infer<typeof CompositionProps> => ({
       title: text,
       durationInSeconds,
-      audioFileName: audioFileName || undefined,
-      cardsData: cardsData,
-    };
-  }, [text, durationInSeconds, audioFileName, cardsData]);
-
-  const durationInFrames = useMemo(() => {
-    return Math.round(durationInSeconds * COMPOSITION_FPS);
-  }, [durationInSeconds]);
+      audioFileName,
+      cardsData,
+    }),
+    [text, durationInSeconds, audioFileName, cardsData]
+  );
 
   return (
-    <div className=" flex">
-      <div className="max-w-[360px] min-w-[360px]  m-auto mb-5 ">
-        <div className="overflow-hidden max-h-[700px] rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-5 ">
+    <div className="flex flex-col gap-geist">
+      <div className="flex flex-col items-start gap-geist-half lg:flex-row">
+        <div className="flex max-w-[360px] min-w-[360px] flex-col gap-geist-half">
           <Player
             key={`player-${audioFileName}`}
             component={Main}
@@ -87,19 +88,18 @@ export default function Index() {
             loop
           />
         </div>
-      </div>
-
-      <div className=" ml-10  m-auto mb-10 ">
-        <RenderControls
-          text={text}
-          setText={setText}
-          durationInSeconds={durationInSeconds}
-          setDurationInSeconds={setDurationInSeconds}
-          audioFileName={audioFileName}
-          setAudioFileName={handleAudioChange}
-          inputProps={inputProps}
-          compositionId="Shorts"
-        ></RenderControls>
+        <div className="ml-10 m-auto">
+          <RenderControls
+            text={text}
+            setText={setText}
+            durationInSeconds={durationInSeconds}
+            setDurationInSeconds={setDurationInSeconds}
+            inputProps={inputProps}
+            audioFileName={audioFileName}
+            setAudioFileName={setAudioFileName}
+            compositionId="Shorts"
+          />
+        </div>
       </div>
     </div>
   );

@@ -15,10 +15,13 @@ const container: React.CSSProperties = {
   background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
 };
 
-const CARDS = 3;
-
-export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ title, audioFileName, cardsData }: z.infer<typeof CompositionProps>) => {
   const { fps } = useVideoConfig();
+
+  // Use cardsData if available, otherwise show a placeholder
+  const cards = cardsData && cardsData.length > 0 ? cardsData : [
+    { title: "No Data", subtitle: "Add cards in the data editor" }
+  ];
 
   return (
     <AbsoluteFill style={container}>
@@ -35,11 +38,10 @@ export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>)
         }}
       >
         <RemotionCarousel transitionDuration={2}>
-          {[...new Array(CARDS)].map((_, i) => (
+          {cards.map((card, i) => (
             <RemotionCarouselCard
               key={i}
-              title={`${title} - Card ${i + 1}`}
-              content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+              data={card}
             />
           ))}
         </RemotionCarousel>
