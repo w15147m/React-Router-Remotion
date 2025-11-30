@@ -5,40 +5,20 @@ import {
   staticFile,
   Loop,
   useVideoConfig,
-  useCurrentFrame,
-  interpolate,
-  spring,
 } from "remotion";
 import React from "react";
 import { CompositionProps } from "../../../remotion/schemata";
 import { audioDurations } from "../../../remotion/audioData";
+import { RemotionCarousel, RemotionCarouselCard } from "./components/RemotionCarousel";
 
 const container: React.CSSProperties = {
   background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
 };
 
+const CARDS = 3;
+
 export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>) => {
   const { fps } = useVideoConfig();
-  const frame = useCurrentFrame();
-
-  // Scale animation
-  const scale = spring({
-    frame,
-    fps,
-    from: 0,
-    to: 1,
-    durationInFrames: 30,
-  });
-
-  // Fade in animation
-  const opacity = interpolate(frame, [0, 30], [0, 1], {
-    extrapolateRight: "clamp",
-  });
-
-  // Rotate animation
-  const rotate = interpolate(frame, [0, 60], [0, 360], {
-    extrapolateRight: "clamp",
-  });
 
   return (
     <AbsoluteFill style={container}>
@@ -51,21 +31,18 @@ export const Main = ({ title, audioFileName }: z.infer<typeof CompositionProps>)
         style={{
           justifyContent: "center",
           alignItems: "center",
+          display: "flex",
         }}
       >
-        <div
-          style={{
-            fontSize: 80,
-            fontWeight: "bold",
-            color: "white",
-            textAlign: "center",
-            padding: "0 40px",
-            transform: `scale(${scale}) rotate(${rotate}deg)`,
-            opacity,
-          }}
-        >
-          {title}
-        </div>
+        <RemotionCarousel transitionDuration={2}>
+          {[...new Array(CARDS)].map((_, i) => (
+            <RemotionCarouselCard
+              key={i}
+              title={`${title} - Card ${i + 1}`}
+              content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            />
+          ))}
+        </RemotionCarousel>
       </AbsoluteFill>
     </AbsoluteFill>
   );

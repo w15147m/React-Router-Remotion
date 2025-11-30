@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-const CARDS = 10;
 const MAX_VISIBILITY = 3;
 const AUTO_SCROLL_INTERVAL = 3000; // 3 seconds
 
@@ -32,7 +31,7 @@ const ChevronRight = () => (
   </svg>
 );
 
-const Carousel = ({ children }: CarouselProps) => {
+export const Carousel = ({ children }: CarouselProps) => {
   const [active, setActive] = useState(2);
   const count = React.Children.count(children);
 
@@ -84,18 +83,4 @@ const Carousel = ({ children }: CarouselProps) => {
   );
 };
 
-export default function TestPage() {
-  return (
-    <div className='carousel-app'>
-      <Carousel>
-        {[...new Array(CARDS)].map((_, i) => (
-          <Card
-            key={i}
-            title={'Card ' + (i + 1)}
-            content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-          />
-        ))}
-      </Carousel>
-    </div>
-  );
-}
+export const CarouselCard = Card;
