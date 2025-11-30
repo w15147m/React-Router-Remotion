@@ -14,7 +14,8 @@ export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = 
   const frame = useCurrentFrame();
   const { width, fps } = useVideoConfig();
 
-  const numberOfScreens = cardsData.length;
+  // Ensure at least 1 to prevent hydration mismatch
+  const numberOfScreens = Math.max(cardsData.length, 1);
 
   // Scroll speed: move to next screen every N seconds
   const secondsPerScreen = 80;
