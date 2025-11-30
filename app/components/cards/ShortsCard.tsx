@@ -602,20 +602,20 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
   return (
     <div style={{
       width: '100%',
-      height: '100%',
-      backgroundColor: '#f8f8f8',
+      height: '1751px',
+      backgroundColor: '#1a1a2e',
       display: 'flex',
       flexDirection: 'column',
       transform: `scale(${scale})`,
       opacity,
-      border: '1px solid #e0e0e0',
+      border: '1px solid #16213e',
     }}>
       {/* Image Section */}
       <div style={{
         position: 'relative',
         height: '52%',
         overflow: 'hidden',
-        borderBottom: '1px solid #e0e0e0',
+        borderBottom: '1px solid #0f3460',
       }}>
         {data.icon && (
           <div style={{
@@ -624,11 +624,11 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
             left: '25px',
             fontSize: '50px',
             zIndex: 2,
-            backgroundColor: 'rgba(255,255,255,0.95)',
+            backgroundColor: 'rgba(230,57,70,0.95)',
             borderRadius: '12px',
             padding: '12px 16px',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-            border: '1px solid rgba(0,0,0,0.1)',
+            boxShadow: '0 2px 10px rgba(230,57,70,0.3)',
+            border: '1px solid rgba(230,57,70,0.5)',
             transform: `scale(${pulse})`,
           }}>
             {data.icon}
@@ -659,8 +659,8 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
             position: 'absolute',
             bottom: '25px',
             left: '25px',
-            backgroundColor: '#2a2a2a',
-            color: '#f8f8f8',
+            backgroundColor: '#e63946',
+            color: '#f1faee',
             padding: '8px 18px',
             fontFamily: 'Georgia, serif',
             fontSize: '18px',
@@ -679,14 +679,21 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#1a1a2e',
       }}>
-        <div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          flex: 1,
+        }}>
           <div style={{
             fontFamily: 'Georgia, serif',
-            fontSize: '42px',
+            fontSize: '100px',
+            textAlign: 'center',
+            background: '#0f3460',
             fontWeight: '700',
-            color: '#1a1a1a',
+            color: '#f1faee',
             marginBottom: '12px',
             lineHeight: '1.2',
             letterSpacing: '-0.5px',
@@ -697,47 +704,43 @@ export const ShortsCard: React.FC<ShortsCardProps> = ({ data, index }) => {
           {data.subtitle && (
             <div style={{
               fontFamily: 'Georgia, serif',
-              fontSize: '22px',
-              color: '#666',
+              fontSize: '100px',
+              textAlign: 'center',
+              background: '#0f3460',
+              color: '#a8dadc',
               marginBottom: '18px',
               fontWeight: '400',
               fontStyle: 'italic',
             }}>
-              {data.subtitle}
+              {data.yearRange}
             </div>
           )}
 
-          {data.label && (
+          {data.rankNumber && data.rankLabel && (
             <div style={{
-              display: 'inline-block',
-              backgroundColor: 'transparent',
-              color: '#2a2a2a',
-              padding: '0',
               fontFamily: 'Georgia, serif',
-              fontSize: '16px',
-              fontWeight: '600',
-              borderBottom: '2px solid #2a2a2a',
-              paddingBottom: '4px',
-              letterSpacing: '1px',
+              fontSize: '100px',
+              textAlign: 'center',
+              background: '#0f3460',
+              fontWeight: '700',
+              color: '#f1faee',
+              marginBottom: '12px',
+              lineHeight: '1.2',
               textTransform: 'uppercase',
+              flex: '1',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
-              {data.label}
+              {data.rankNumber}
+              <br />
+              {data.rankLabel}
             </div>
           )}
         </div>
 
-        {data.rankNumber !== undefined && data.rankLabel && (
-          <div style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: '70px',
-            fontWeight: '700',
-            color: '#2a2a2a',
-            letterSpacing: '1px',
-          }}>
-            #{data.rankNumber} {data.rankLabel}
-          </div>
-        )}
+
       </div>
-    </div>
+    </div >
   );
 };

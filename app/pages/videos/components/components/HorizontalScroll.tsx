@@ -13,15 +13,31 @@ interface HorizontalScrollProps {
 export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ cardsData = [] }) => {
   const frame = useCurrentFrame();
   const { width, fps } = useVideoConfig();
+  const [isClient, setIsClient] = React.useState(false);
 
-  // Ensure at least 1 to prevent hydration mismatch
-  const numberOfScreens = Math.max(cardsData.length, 1);
+  // Ensure client-side rendering to avoid hydration mismatch
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const numberOfScreens = cardsData.length || 1;
 
   // Scroll speed: move to next screen every N seconds
   const secondsPerScreen = 80;
   const speedPerFrame = 100 / (secondsPerScreen * fps);
 
   const xPercent = -frame * speedPerFrame;
+
+  // Don't render until client-side to avoid hydration issues
+  if (!isClient) {
+    return (
+      <AbsoluteFill
+        style={{
+          background: "linear-gradient(135deg, #0a4d4e 0%, #1a1a2e 100%)",
+        }}
+      />
+    );
+  }
 
   return (
     <AbsoluteFill
