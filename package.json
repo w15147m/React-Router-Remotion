@@ -16,6 +16,7 @@
     "@remotion/shapes": "4.0.377",
     "@tailwindcss/cli": "4.1.1",
     "@tailwindcss/vite": "4.1.1",
+    "axios": "^1.13.2",
     "clsx": "2.1.1",
     "isbot": "4.1.0",
     "react": "19.0.0",

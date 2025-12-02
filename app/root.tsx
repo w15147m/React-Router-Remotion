@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import "./styles/app.css";
-import { AppLayout } from "./components/layout/AppLayout";
+import { AuthProvider } from "./context/AuthContext";
 
 export const meta: MetaFunction = () => {
   return [
@@ -27,9 +27,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <AppLayout>
+        <AuthProvider>
           <Outlet />
-        </AppLayout>
+        </AuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

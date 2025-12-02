@@ -65,3 +65,26 @@ export const getProgress = async ({
 
   return makeRequest<ProgressResponse>("/api/lambda/progress", body);
 };
+
+// ================================
+// ✅ Login API Function
+// ================================
+export const loginPost = async <Res>(
+  endpoint: string,
+  body: unknown,
+): Promise<Res> => {
+  const result = await fetch(endpoint, {
+    method: "post",
+    body: JSON.stringify(body),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  if (!result.ok) {
+    const errorData = await result.json().catch(() => ({}));
+    throw new Error(errorData.message || `HTTP error! status: ${result.status}`);
+  }
+
+  return await result.json();
+};
